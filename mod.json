@@ -1,0 +1,13 @@
+{
+	"Name": "CustomLevel",
+	"Authors": ["Powback"],
+	"Description": "Custom levels",
+	"URL": "",
+	"Version": "0",
+	"HasWebUI": false,
+	"HasVeniceEXT": true,
+	"Dependencies": {
+		"maploader": "^1.0.0",
+        "veniceext": "^1.0.0"
+    }
+}
