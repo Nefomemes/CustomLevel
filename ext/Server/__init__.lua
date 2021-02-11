@@ -1,4 +1,15 @@
-local presetJSON = require "testpreset"
+local XP2_SkybarJSON = require "testpreset"
+local MP_013JSON = require "MP_013"
+
+local XP2_Skybar = json.decode(XP2_SkybarJSON)
+local MP_013 = json.decode(MP_013JSON)
+
+
+local dic = {
+	["Levels/XP2_Skybar/XP2_Skybar"] = XP2_Skybar,
+	["Levels/MP_013/MP_013"] = MP_013
+}
+
 local function DecodeParams(p_Table)
     if(p_Table == nil) then
         print("No table received")
@@ -24,7 +35,12 @@ local function DecodeParams(p_Table)
 end
 
 Events:Subscribe('Level:LoadResources', function()
-	print(presetJSON)
-	local preset = DecodeParams(json.decode(presetJSON))
+	local levelName = SharedUtils:GetLevelName()
+	print(levelName)
+	local preset = dic[levelName]
+	if preset == nil then
+		print("Empty map dictionary: no custom map data for map: " .. levelName)
+		return
+	end
 	Events:Dispatch('MapLoader:LoadLevel', preset)
 end)
